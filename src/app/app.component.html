@@ -12,24 +12,31 @@
       </div>
     </div>
     <div class="transaction__form">
-      <mat-form-field appearance="standard">
-        <mat-label>Transaction</mat-label>
-        <input matInput placeholder="Transaction">
-        <mat-icon matSuffix>shopping_bag</mat-icon>
-      </mat-form-field>
-      <mat-form-field appearance="standard">
-        <mat-label>Amount</mat-label>
-        <input matInput type="tel" placeholder="Amount">
-        <mat-icon matSuffix>attach_money</mat-icon>
-      </mat-form-field>
-      <mat-form-field appearance="standard">
-        <mat-label>Date</mat-label>
-        <input matInput type="date" placeholder="Date">
-        <mat-icon matSuffix>calendar_month</mat-icon>
-      </mat-form-field>
+      <form [formGroup]="form">
+        <mat-form-field appearance="standard">
+          <mat-label>Transaction</mat-label>
+          <input matInput formControlName="transactionName" placeholder="Transaction">
+          <mat-icon matSuffix>shopping_bag</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+          <mat-label>Description</mat-label>
+          <input matInput formControlName="transactionDescription" placeholder="Transaction">
+          <mat-icon matSuffix>description</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+          <mat-label>Amount</mat-label>
+          <input matInput formControlName="transactionAmount" type="tel" placeholder="Amount">
+          <mat-icon matSuffix>attach_money</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+          <mat-label>Date</mat-label>
+          <input matInput formControlName="transactionDate" type="date" placeholder="Date">
+          <mat-icon matSuffix>calendar_month</mat-icon>
+        </mat-form-field>
+      </form>
     </div>
     <div class="transaction__btn">
-      <button mat-raised-button class="btn__addTransaction">Add Transaction</button>
+      <button mat-raised-button class="btn__addTransaction" (click)="postTransaction()">Add Transaction</button>
     </div>
   </div>
   <div class="transaction__table">
@@ -41,11 +48,11 @@
           <div class="col col-3">Amount</div>
           <div class="col col-4">Date</div>
         </li>
-        <li class="table-row">
-          <div class="col col-1" data-label="Job Id">1</div>
-          <div class="col col-2" data-label="Customer Name">Cine</div>
-          <div class="col col-3" data-label="Amount">$350</div>
-          <div class="col col-4" data-label="Payment Status">09-09-22</div>
+        <li class="table-row" *ngFor="let item of transactions">
+          <div class="col col-1" data-label="Job Id">{{item.idTransaction}}</div>
+          <div class="col col-2" data-label="Customer Name">{{item.transactionName}}</div>
+          <div class="col col-3" data-label="Amount">${{item.transactionAmount}}</div>
+          <div class="col col-4" data-label="Payment Status">{{item.transactionDate}} </div>
         </li>
       </ul>
     </div>
